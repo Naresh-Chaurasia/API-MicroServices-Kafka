@@ -25,6 +25,7 @@ public class Main {
 
         Producer<String, String> producer = new KafkaProducer<>(props);
 
+        //Generating 10 Events
         for(int i = 1; i <= 10; i++) {
             log.info("Generating event #" + i);
 
