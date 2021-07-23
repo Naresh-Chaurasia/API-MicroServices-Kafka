@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.ws.api.ResourceServer.controllers;
+package com.appsdeveloperblog.estore.ProductsService.controllers;
 
 /*import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

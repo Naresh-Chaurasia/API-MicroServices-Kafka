@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.ws.api.ResourceServer.controllers;
+package com.appsdeveloperblog.estore.ProductsService.controllers;
 
 import java.util.Collections;
 import java.util.Map;

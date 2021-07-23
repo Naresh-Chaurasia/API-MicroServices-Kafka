@@ -1,7 +1,6 @@
-package com.appsdeveloperblog.ws.api.ResourceServer.controllers;
+package com.appsdeveloperblog.estore.ProductsService.controllers;
 
 //import com.pluralsight.kafka.producer.Main;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import com.appsdeveloperblog.estore.ProductsService.command.CreateProductCommand;
 import com.appsdeveloperblog.estore.ProductsService.command.rest.CreateProductRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
