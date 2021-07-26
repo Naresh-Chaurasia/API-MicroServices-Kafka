@@ -1,0 +1,13 @@
+-------------------------ProductsCommandController/createProducts()
+-------------------------ProductsCommandController/createProducts()/calls commandGateway.sendAndWait(createProductCommand)
+-------------------------ProductAggregate/ProductAggregate/@CommandHandler
+-------------------------ProductAggregate/ProductAggregate/Publishing Events
+-------------------------It will dispatch all the event to all event handlers inside this aggregate
+-------------------------ProductAggregate/on/@EventSourcingHandler
+-------------------------ProductEventsHandler/on()/@EventHandler
+-------------------------Persisting in database
+
+=========================================
+
+-------------------------ProductsQueryController/getProducts/@GetMapping calls queryGateway.query(..)
+-------------------------ProductsRepository/findProducts/@QueryHandler

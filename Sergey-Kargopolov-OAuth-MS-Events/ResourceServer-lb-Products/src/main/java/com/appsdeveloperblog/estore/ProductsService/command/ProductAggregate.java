@@ -32,7 +32,7 @@ public class ProductAggregate {
 	@CommandHandler
 	public ProductAggregate(CreateProductCommand createProductCommand) {
 		// Validate Create Product Command
-		
+		System.out.println("-------------------------ProductAggregate/ProductAggregate()");
 		if(createProductCommand.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("Price cannot be less or equal than zero");
 		}
@@ -46,6 +46,7 @@ public class ProductAggregate {
 		
 		BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
 
+		System.out.println("-------------------------ProductAggregate/ProductAggregate() calls AggregateLifecycle.apply(productCreatedEvent);");
 		//Publishing Events
 		AggregateLifecycle.apply(productCreatedEvent);
 	}
@@ -93,6 +94,7 @@ public class ProductAggregate {
 	
 	@EventSourcingHandler
 	public void on(ProductCreatedEvent productCreatedEvent) {
+		System.out.println("-------------------------ProductAggregate/on()");
 		this.productId = productCreatedEvent.getProductId();
 		this.price = productCreatedEvent.getPrice();
 		this.title = productCreatedEvent.getTitle();

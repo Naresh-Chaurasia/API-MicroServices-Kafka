@@ -1,0 +1,8 @@
+Ctrl+Alt+L - Code Format
+
+Ctrl + Y - Delete Line
+
+Ctrl + Shift + F - Search for text in file
+
+
+http://centos:62437/h2-console/login.jsp?jsessionid=ea4a319e0f8b0cdd9c86ea3ec5040404
