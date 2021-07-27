@@ -11,6 +11,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
@@ -24,16 +26,18 @@ public class ProductAggregate {
 	private String title;
 	private BigDecimal price;
 	private Integer quantity;
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductAggregate.class);
 	
 	public ProductAggregate() {
 		
 	}
 	
 	@CommandHandler
-	public ProductAggregate(CreateProductCommand createProductCommand) {
+	public ProductAggregate(CreateProductCommand createProductCommand){
 		// Validate Create Product Command
 
-		System.out.println("-------------------------ProductAggregate/ProductAggregate/@CommandHandler");
+		LOGGER.info("-------------------------ProductAggregate/ProductAggregate/@CommandHandler-------------------------");
 		
 		if(createProductCommand.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
 			throw new IllegalArgumentException("Price cannot be less or equal than zero");
@@ -49,9 +53,11 @@ public class ProductAggregate {
 		BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
 
 		//Publishing Events
-		System.out.println("-------------------------ProductAggregate/ProductAggregate/Publishing Events");
-		System.out.println("-------------------------It will dispatch all the event to all event handlers inside this aggregate");
+		LOGGER.info("-------------------------ProductAggregate/ProductAggregate/Publishing Events-------------------------P");
+		LOGGER.info("-------------------------It will dispatch all the event to all event handlers inside this aggregate-------------------------P");
 		AggregateLifecycle.apply(productCreatedEvent);
+
+
 	}
 	
 	/*@CommandHandler
@@ -97,7 +103,7 @@ public class ProductAggregate {
 	
 	@EventSourcingHandler
 	public void on(ProductCreatedEvent productCreatedEvent) {
-		System.out.println("-------------------------ProductAggregate/on/@EventSourcingHandler");
+		LOGGER.info("-------------------------ProductAggregate/on/@EventSourcingHandler-------------------------");
 		this.productId = productCreatedEvent.getProductId();
 		this.price = productCreatedEvent.getPrice();
 		this.title = productCreatedEvent.getTitle();

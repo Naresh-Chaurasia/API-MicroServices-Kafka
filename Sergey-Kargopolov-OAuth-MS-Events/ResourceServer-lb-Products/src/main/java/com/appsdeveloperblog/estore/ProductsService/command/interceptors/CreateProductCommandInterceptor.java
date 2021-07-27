@@ -26,7 +26,7 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
 	public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(
 			List<? extends CommandMessage<?>> messages) {
 
-		System.out.println("-------------------------CreateProductCommandInterceptor/handle()");
+		LOGGER.info("-------------------------CreateProductCommandInterceptor/handle()-------------------------");
 		 
 		return (index, command) -> {
 			

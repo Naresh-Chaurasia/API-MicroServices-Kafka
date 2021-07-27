@@ -6,6 +6,8 @@ import com.appsdeveloperblog.estore.ProductsService.core.events.ProductCreatedEv
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.ResetHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class ProductLookupEventsHandler {
 	
 	private final ProductLookupRepository productLookupRepository;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductLookupEventsHandler.class);
 	
 	public ProductLookupEventsHandler(ProductLookupRepository productLookupRepository) {
 		this.productLookupRepository = productLookupRepository;
@@ -21,13 +24,15 @@ public class ProductLookupEventsHandler {
 	@EventHandler
 	public void on(ProductCreatedEvent event) {
 
-		System.out.println("-------------------------ProductLookupEventsHandler/on()/@EventHandler. Save in Db");
+		LOGGER.info("-------------------------ProductLookupEventsHandler/on()/@EventHandler. Save in Db-------------------------");
 		
 		ProductLookupEntity productLookupEntity = new ProductLookupEntity(event.getProductId(),
 				event.getTitle());
 		
 		productLookupRepository.save(productLookupEntity);
-		
+
+		LOGGER.info("-------------------------post productLookupRepository.save(productLookupEntity)-------------------------");
+
 	}
 	
 	@ResetHandler

@@ -25,32 +25,38 @@ public class ProductEventsHandler {
 		this.productsRepository = productsRepository;
 	}
 
-	/*
+
 	@ExceptionHandler(resultType=Exception.class)
 	public void handle(Exception exception) throws Exception {
+		LOGGER.info("-------------------------Throwing Exception: ProductEventsHandler/handle()/@ExceptionHandler-------------------------");
 		throw exception;
 	}
 	
 	@ExceptionHandler(resultType=IllegalArgumentException.class)
 	public void handle(IllegalArgumentException exception) {
 		// Log error message
-	}*/
+	}
 	
 
 	@EventHandler
-	public void on(ProductCreatedEvent event) {
+	public void on(ProductCreatedEvent event) throws Exception{
 
-		System.out.println("-------------------------ProductEventsHandler/on()/@EventHandler");
-		System.out.println("-------------------------Persisting in database");
+		LOGGER.info("-------------------------ProductEventsHandler/on()/@EventHandler-------------------------");
+		LOGGER.info("-------------------------Persisting in database-------------------------");
 
 		ProductEntity productEntity = new ProductEntity();
 		BeanUtils.copyProperties(event, productEntity);
 
-		try {
-			productsRepository.save(productEntity);
-		} catch (IllegalArgumentException ex) {
+		//try {
+		productsRepository.save(productEntity);
+		/*} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
-		}
+		}*/
+
+		/*if(true){
+			LOGGER.info("-------------------------Throwing Exception: ProductEventsHandler/on()/@EventHandler-------------------------");
+			throw new Exception("Throwing Exception: ProductEventsHandler/on()/@EventHandler");
+		}*/
 
 	}
 	
