@@ -36,12 +36,15 @@ public class ProductsServiceErrorHandler {
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-/*	@ExceptionHandler(value= {CommandExecutionException.class})
+	@ExceptionHandler(value= {CommandExecutionException.class})
 	public ResponseEntity<Object> handleCommandExecutionException(CommandExecutionException ex, WebRequest request) {
+
+		LOGGER.info("-------------------------ProductsServiceErrorHandler/handleCommandExecutionException-------------------------");
+
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), ex.getMessage());
 		
 		return new ResponseEntity<>(errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
-	}*/
+	}
 
 
 }

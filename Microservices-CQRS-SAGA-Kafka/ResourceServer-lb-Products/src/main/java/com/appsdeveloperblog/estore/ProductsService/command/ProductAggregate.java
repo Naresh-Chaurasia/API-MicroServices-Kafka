@@ -34,7 +34,7 @@ public class ProductAggregate {
 	}
 	
 	@CommandHandler
-	public ProductAggregate(CreateProductCommand createProductCommand){
+	public ProductAggregate(CreateProductCommand createProductCommand) throws Exception {
 		// Validate Create Product Command
 
 		LOGGER.info("-------------------------ProductAggregate/ProductAggregate/@CommandHandler-------------------------");
@@ -53,9 +53,10 @@ public class ProductAggregate {
 		BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
 
 		//Publishing Events
-		LOGGER.info("-------------------------ProductAggregate/ProductAggregate/Publishing Events-------------------------P");
-		LOGGER.info("-------------------------It will dispatch all the event to all event handlers inside this aggregate-------------------------P");
+		LOGGER.info("-------------------------ProductAggregate/ProductAggregate/Publishing Events-------------------------");
+		LOGGER.info("-------------------------It will dispatch all the event to all event handlers inside this aggregate-------------------------");
 		AggregateLifecycle.apply(productCreatedEvent);
+
 
 
 	}

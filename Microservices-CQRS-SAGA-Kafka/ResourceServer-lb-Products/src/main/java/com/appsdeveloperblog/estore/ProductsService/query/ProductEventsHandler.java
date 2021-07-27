@@ -47,16 +47,16 @@ public class ProductEventsHandler {
 		ProductEntity productEntity = new ProductEntity();
 		BeanUtils.copyProperties(event, productEntity);
 
-		//try {
+		try {
 		productsRepository.save(productEntity);
-		/*} catch (IllegalArgumentException ex) {
+		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
-		}*/
+		}
 
-		/*if(true){
+		if(true){
 			LOGGER.info("-------------------------Throwing Exception: ProductEventsHandler/on()/@EventHandler-------------------------");
 			throw new Exception("Throwing Exception: ProductEventsHandler/on()/@EventHandler");
-		}*/
+		}
 
 	}
 	

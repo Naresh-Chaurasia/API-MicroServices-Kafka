@@ -2,6 +2,7 @@ package com.appsdeveloperblog.estore.ProductsService;
 
 import com.appsdeveloperblog.estore.ProductsService.command.interceptors.CreateProductCommandInterceptor;
 //import com.appsdeveloperblog.estore.ProductsService.core.errorhandling.ProductsServiceEventsErrorHandler;
+import com.appsdeveloperblog.estore.ProductsService.core.errorhandling.ProductsServiceEventsErrorHandler;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProductsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProductsApplication.class, args);
 	}
-/*
+
 	@Autowired
 	public void registerCreateProductCommandInterceptor(ApplicationContext context,
 														CommandBus commandBus) {
@@ -39,6 +40,5 @@ public class ProductsApplication {
 //				conf -> PropagatingErrorHandler.instance());
 	}
 
- */
 
 }
