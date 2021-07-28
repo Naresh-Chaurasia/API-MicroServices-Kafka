@@ -1,11 +1,9 @@
 package com.appsdeveloperblog.estore.ProductsService.command;
 
-/*import com.appsdeveloperblog.estore.ProductsService.core.events.ProductCreatedEvent;
-import com.appsdeveloperblog.estore.core.commands.CancelProductReservationCommand;
-import com.appsdeveloperblog.estore.core.commands.ReserveProductCommand;
-import com.appsdeveloperblog.estore.core.events.ProductReservationCancelledEvent;
-import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;*/
+
 import com.appsdeveloperblog.estore.ProductsService.core.events.ProductCreatedEvent;
+import com.appsdeveloperblog.estore.core.commands.ReserveProductCommand;
+import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -61,7 +59,7 @@ public class ProductAggregate {
 
 	}
 	
-	/*@CommandHandler
+	@CommandHandler
 	public void handle(ReserveProductCommand reserveProductCommand) {
 		
 		if(quantity < reserveProductCommand.getQuantity()) {
@@ -79,7 +77,7 @@ public class ProductAggregate {
 		
 	}
 	
-	@CommandHandler
+	/*@CommandHandler
 	public void handle(CancelProductReservationCommand cancelProductReservationCommand) {
 		
 		ProductReservationCancelledEvent productReservationCancelledEvent = 
@@ -112,11 +110,11 @@ public class ProductAggregate {
 	}
 	
 	
-	/*@EventSourcingHandler
+	@EventSourcingHandler
 	public void on(ProductReservedEvent productReservedEvent) {
 		this.quantity -= productReservedEvent.getQuantity();
 	}
 	
-	*/
+	
 
 }

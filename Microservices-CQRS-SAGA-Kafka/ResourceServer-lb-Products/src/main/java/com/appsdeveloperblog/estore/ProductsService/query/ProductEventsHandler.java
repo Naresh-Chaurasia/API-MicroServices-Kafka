@@ -5,6 +5,7 @@ import com.appsdeveloperblog.estore.ProductsService.core.data.ProductsRepository
 import com.appsdeveloperblog.estore.ProductsService.core.events.ProductCreatedEvent;
 /*import com.appsdeveloperblog.estore.core.events.ProductReservationCancelledEvent;
 import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;*/
+import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.eventhandling.ResetHandler;
@@ -53,14 +54,14 @@ public class ProductEventsHandler {
 			ex.printStackTrace();
 		}
 
-		if(true){
+		/*if(true){
 			LOGGER.info("-------------------------Throwing Exception: ProductEventsHandler/on()/@EventHandler-------------------------");
 			throw new Exception("Throwing Exception: ProductEventsHandler/on()/@EventHandler");
-		}
+		}*/
 
 	}
 	
-	/*@EventHandler
+	@EventHandler
 	public void on(ProductReservedEvent productReservedEvent) {
 		ProductEntity productEntity = productsRepository.findByProductId(productReservedEvent.getProductId());
 		
@@ -77,7 +78,7 @@ public class ProductEventsHandler {
 				" and orderId: " + productReservedEvent.getOrderId());
 	}
 	
-	@EventHandler
+	/*@EventHandler
 	public void on(ProductReservationCancelledEvent productReservationCancelledEvent) {
 		ProductEntity currentlyStoredProduct =  productsRepository.findByProductId(productReservationCancelledEvent.getProductId());
 	
