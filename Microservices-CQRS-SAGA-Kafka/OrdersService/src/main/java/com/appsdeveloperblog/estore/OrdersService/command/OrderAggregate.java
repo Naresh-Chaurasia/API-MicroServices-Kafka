@@ -5,7 +5,11 @@
  */
 package com.appsdeveloperblog.estore.OrdersService.command;
 
+import com.appsdeveloperblog.estore.OrdersService.command.commands.ApproveOrderCommand;
+import com.appsdeveloperblog.estore.OrdersService.command.commands.RejectOrderCommand;
+import com.appsdeveloperblog.estore.OrdersService.core.events.OrderApprovedEvent;
 import com.appsdeveloperblog.estore.OrdersService.core.events.OrderCreatedEvent;
+import com.appsdeveloperblog.estore.OrdersService.core.events.OrderRejectedEvent;
 import com.appsdeveloperblog.estore.OrdersService.core.model.OrderStatus;
 import com.appsdeveloperblog.estore.OrdersService.command.commands.CreateOrderCommand;
 import org.axonframework.commandhandling.CommandHandler;
@@ -46,6 +50,34 @@ public class OrderAggregate {
         this.quantity = orderCreatedEvent.getQuantity();
         this.orderStatus = orderCreatedEvent.getOrderStatus();
     }
- 
+
+    @CommandHandler
+    public void handle(ApproveOrderCommand approveOrderCommand) {
+        // Create and publish the OrderApprovedEvent
+
+       OrderApprovedEvent orderApprovedEvent = new OrderApprovedEvent(approveOrderCommand.getOrderId());
+
+        AggregateLifecycle.apply(orderApprovedEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(OrderApprovedEvent orderApprovedEvent) {
+        this.orderStatus = orderApprovedEvent.getOrderStatus();
+    }
+
+    @CommandHandler
+    public void handle(RejectOrderCommand rejectOrderCommand) {
+
+        OrderRejectedEvent orderRejectedEvent = new OrderRejectedEvent(rejectOrderCommand.getOrderId(),
+                rejectOrderCommand.getReason());
+
+        AggregateLifecycle.apply(orderRejectedEvent);
+
+    }
+
+    @EventSourcingHandler
+    public void on(OrderRejectedEvent orderRejectedEvent) {
+        this.orderStatus = orderRejectedEvent.getOrderStatus();
+    }
 
 }
