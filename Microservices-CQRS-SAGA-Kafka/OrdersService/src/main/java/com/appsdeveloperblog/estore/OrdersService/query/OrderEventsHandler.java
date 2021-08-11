@@ -5,18 +5,24 @@
  */
 package com.appsdeveloperblog.estore.OrdersService.query;
 
+import com.appsdeveloperblog.estore.OrdersService.command.OrderAggregate;
 import com.appsdeveloperblog.estore.OrdersService.core.data.OrderEntity;
 import com.appsdeveloperblog.estore.OrdersService.core.data.OrdersRepository;
 import com.appsdeveloperblog.estore.OrdersService.core.events.OrderApprovedEvent;
 import com.appsdeveloperblog.estore.OrdersService.core.events.OrderCreatedEvent;
+import com.appsdeveloperblog.estore.OrdersService.core.events.OrderRejectedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
 @ProcessingGroup("order-group")
 public class OrderEventsHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderEventsHandler.class);
     
     private final OrdersRepository ordersRepository;
     
@@ -45,6 +51,16 @@ public class OrderEventsHandler {
 
         ordersRepository.save(orderEntity);
 
+    }
+
+    @EventHandler
+    public void on(OrderRejectedEvent orderRejectedEvent) {
+
+        LOGGER.info("-------------------------OrderEventsHandler/on(OrderRejectedEvent)/@EventHandler-------------------------");
+
+        OrderEntity orderEntity = ordersRepository.findByOrderId(orderRejectedEvent.getOrderId());
+        orderEntity.setOrderStatus(orderRejectedEvent.getOrderStatus());
+        ordersRepository.save(orderEntity);
     }
     
 }

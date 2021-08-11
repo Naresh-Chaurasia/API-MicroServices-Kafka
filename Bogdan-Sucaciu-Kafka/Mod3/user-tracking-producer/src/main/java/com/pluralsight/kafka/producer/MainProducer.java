@@ -12,7 +12,7 @@ import java.util.Properties;
 import static java.lang.Thread.sleep;
 
 @Slf4j
-public class Main {
+public class MainProducer {
 
     public static void main(String[] args) throws InterruptedException {
 

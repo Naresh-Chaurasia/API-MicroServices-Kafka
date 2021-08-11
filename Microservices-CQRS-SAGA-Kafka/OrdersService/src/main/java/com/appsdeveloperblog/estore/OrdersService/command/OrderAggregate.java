@@ -17,10 +17,14 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 @Aggregate
 public class OrderAggregate {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderAggregate.class);
 
     @AggregateIdentifier
     private String orderId;
@@ -68,15 +72,19 @@ public class OrderAggregate {
     @CommandHandler
     public void handle(RejectOrderCommand rejectOrderCommand) {
 
+        LOGGER.info("-------------------------OrderAggregate/handle(RejectOrderCommand)/@CommandHandler-------------------------");
+
         OrderRejectedEvent orderRejectedEvent = new OrderRejectedEvent(rejectOrderCommand.getOrderId(),
                 rejectOrderCommand.getReason());
 
+        LOGGER.info("-------------------------OrderAggregate/handle(RejectOrderCommand)/AggregateLifecycle.apply(orderRejectedEvent)-------------------------");
         AggregateLifecycle.apply(orderRejectedEvent);
 
     }
 
     @EventSourcingHandler
     public void on(OrderRejectedEvent orderRejectedEvent) {
+        LOGGER.info("-------------------------OrderAggregate/on(OrderRejectedEvent)-------------------------");
         this.orderStatus = orderRejectedEvent.getOrderStatus();
     }
 

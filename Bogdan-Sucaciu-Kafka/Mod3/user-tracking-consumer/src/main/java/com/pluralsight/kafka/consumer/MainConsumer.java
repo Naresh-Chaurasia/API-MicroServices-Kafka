@@ -12,7 +12,7 @@ import java.util.Properties;
 import static java.util.Arrays.asList;
 
 @Slf4j
-public class Main {
+public class MainConsumer {
 
     public static void main(String[] args) {
 

@@ -4,6 +4,7 @@ import com.appsdeveloperblog.estore.OrdersService.command.commands.ApproveOrderC
 import com.appsdeveloperblog.estore.OrdersService.command.commands.RejectOrderCommand;
 import com.appsdeveloperblog.estore.OrdersService.core.events.OrderApprovedEvent;
 import com.appsdeveloperblog.estore.OrdersService.core.events.OrderCreatedEvent;
+import com.appsdeveloperblog.estore.OrdersService.core.events.OrderRejectedEvent;
 import com.appsdeveloperblog.estore.core.commands.CancelProductReservationCommand;
 import com.appsdeveloperblog.estore.core.commands.ProcessPaymentCommand;
 import com.appsdeveloperblog.estore.core.commands.ReserveProductCommand;
@@ -30,8 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
-
-//Ok
 
 @Saga
 public class OrderSaga {
@@ -94,12 +93,14 @@ public class OrderSaga {
 			LOGGER.error(ex.getMessage());
 
 			// Start compensating transaction
+			LOGGER.info("------------1. cancelProductReservation(productReservedEvent,ex.getMessage())--------------");
 			cancelProductReservation(productReservedEvent,ex.getMessage());
 			return;
 		}
 
 		if(userPaymentDetails == null) {
 			// Start compensating transaction
+			LOGGER.info("------------2. cancelProductReservation(productReservedEvent,ex.getMessage())--------------");
 			cancelProductReservation(productReservedEvent,"Could not fetch user payment details");
 			return;
 		}
@@ -118,6 +119,7 @@ public class OrderSaga {
 		} catch(Exception ex) {
 			LOGGER.error(ex.getMessage());
 			// Start compensating transaction
+			LOGGER.info("------------3. cancelProductReservation(productReservedEvent,ex.getMessage())--------------");
 			cancelProductReservation(productReservedEvent,ex.getMessage());
 			return;
 		}
@@ -125,6 +127,7 @@ public class OrderSaga {
 		if(result == null) {
 			LOGGER.info("The ProcessPaymentCommand resulted in NULL. Initiating a compensating transaction");
 			// Start compensating transaction
+			LOGGER.info("------------4. cancelProductReservation(productReservedEvent,ex.getMessage())--------------");
 			cancelProductReservation(productReservedEvent, "Could not proccess user payment with provided payment details");
 		}
 
@@ -178,11 +181,21 @@ public class OrderSaga {
 
 	@SagaEventHandler(associationProperty="orderId")
 	public void handle(ProductReservationCancelledEvent productReservationCancelledEvent) {
+
+		LOGGER.info("-------------------------OrderSaga/handle(ProductReservationCancelledEvent)/@SagaEventHandler-------------------------");
 		// Create and send a RejectOrderCommand
 		RejectOrderCommand rejectOrderCommand = new RejectOrderCommand(productReservationCancelledEvent.getOrderId(),
 				productReservationCancelledEvent.getReason());
 
+		LOGGER.info("-------------------------OrderSaga/handle(ProductReservationCancelledEvent)/commandGateway.send(rejectOrderCommand)-------------------------");
 		commandGateway.send(rejectOrderCommand);
+	}
+
+	@EndSaga
+	@SagaEventHandler(associationProperty="orderId")
+	public void handle(OrderRejectedEvent orderRejectedEvent) {
+		LOGGER.info("Successfully rejected order with id " + orderRejectedEvent.getOrderId());
+		LOGGER.info("-------------------------OrderSaga/handle(OrderRejectedEvent)/@SagaEventHandler-------------------------");
 	}
 
 }

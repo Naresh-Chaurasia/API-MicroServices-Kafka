@@ -77,10 +77,15 @@ public class ProductEventsHandler {
  	
 		LOGGER.info("ProductReservedEvent is called for productId:" + productReservedEvent.getProductId() +
 				" and orderId: " + productReservedEvent.getOrderId());
+
+		//Kafka / Streaming here.
 	}
 	
 	@EventHandler
 	public void on(ProductReservationCancelledEvent productReservationCancelledEvent) {
+
+		LOGGER.info("-------------------------ProductEventsHandler/on(ProductReservationCancelledEvent)/@EventHandler-------------------------");
+
 		ProductEntity currentlyStoredProduct =  productsRepository.findByProductId(productReservationCancelledEvent.getProductId());
 	
 		LOGGER.debug("ProductReservationCancelledEvent: Current product quantity " 
@@ -88,7 +93,8 @@ public class ProductEventsHandler {
 		
 		int newQuantity = currentlyStoredProduct.getQuantity() + productReservationCancelledEvent.getQuantity();
 		currentlyStoredProduct.setQuantity(newQuantity);
-		
+
+		LOGGER.info("-------------------------productsRepository.save(currentlyStoredProduct)-------------------------");
 		productsRepository.save(currentlyStoredProduct);
 		
 		LOGGER.debug("ProductReservationCancelledEvent: New product quantity " 

@@ -81,6 +81,8 @@ public class ProductAggregate {
 	
 	@CommandHandler
 	public void handle(CancelProductReservationCommand cancelProductReservationCommand) {
+
+		LOGGER.info("-------------------------ProductAggregate/handle(CancelProductReservationCommand cancelProductReservationCommand)/@CommandHandler-------------------------");
 		
 		ProductReservationCancelledEvent productReservationCancelledEvent =
 				ProductReservationCancelledEvent.builder()
@@ -90,7 +92,8 @@ public class ProductAggregate {
 				.reason(cancelProductReservationCommand.getReason())
 				.userId(cancelProductReservationCommand.getUserId())
 				.build();
-		
+
+		LOGGER.info("-------------------------call :: AggregateLifecycle.apply(productReservationCancelledEvent)-------------------------");
 		AggregateLifecycle.apply(productReservationCancelledEvent);
 		
 	}
@@ -98,6 +101,8 @@ public class ProductAggregate {
 	
 	@EventSourcingHandler
 	public void on(ProductReservationCancelledEvent productReservationCancelledEvent) {
+
+		LOGGER.info("-------------------------ProductAggregate/on(ProductReservationCancelledEvent productReservationCancelledEvent)/@EventSourcingHandler-------------------------");
 		this.quantity += productReservationCancelledEvent.getQuantity();
 	}
 	

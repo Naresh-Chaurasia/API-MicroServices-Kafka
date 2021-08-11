@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pluralsight.kafka.consumer</groupId>
-    <artifactId>user-tracking-consumer-avro</artifactId>
+    <groupId>com.pluralsight.kafka.producer</groupId>
+    <artifactId>user-tracking-producer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -22,7 +22,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>com.pluralsight.kafka.consumer.Main</mainClass>
+                    <mainClass>com.pluralsight.kafka.producer.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
@@ -47,7 +47,12 @@
             <version>1.8.2</version>
         </dependency>
 
-        <!-- Helper Dependeinces -->
+        <!-- Helper Dependencies -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>0.17.2</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
@@ -58,12 +63,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.6</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
-            <version>1.8.2</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
