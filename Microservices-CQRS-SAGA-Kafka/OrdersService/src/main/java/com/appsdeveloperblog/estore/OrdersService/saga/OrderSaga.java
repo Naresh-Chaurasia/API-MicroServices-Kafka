@@ -13,6 +13,7 @@ import com.appsdeveloperblog.estore.core.events.ProductReservationCancelledEvent
 import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;
 import com.appsdeveloperblog.estore.core.model.User;
 import com.appsdeveloperblog.estore.core.query.FetchUserPaymentDetailsQuery;
+import com.pluralsight.kafka.streams.MainProducer;
 import org.axonframework.commandhandling.CommandCallback;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.commandhandling.CommandResultMessage;
@@ -160,6 +161,14 @@ public class OrderSaga {
 				new OrderSummary(orderApprovedEvent.getOrderId(),
 						orderApprovedEvent.getOrderStatus(),
 						""));*/
+
+		//kafka-integration
+		try {
+			MainProducer.main(null);
+		}catch (Exception e){
+			LOGGER.info("Order is approved. Order Saga is complete Exception: " + e.toString());
+		}
+
 	}
 
 	private void cancelProductReservation(ProductReservedEvent productReservedEvent, String reason) {

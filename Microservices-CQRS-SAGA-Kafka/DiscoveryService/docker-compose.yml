@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  discovery-service:
+    image: connect2tech/discovery-service:v1.0
+    ports:
+      - 8010:8010
+    networks:
+      - axon-demo
+
+  axon-server:
+    image: axoniq/axonserver
+    hostname: localhost
+    ports:
+      - 8124:8124
+      - 8024:8024
+    networks:
+      - axon-demo
+
+  product-service:
+    image: connect2tech/product-service:v1.0
+    ports:
+      - 8090:8090
+    links:
+      - discovery-service:localhost
+      - axon-server:localhost
+    networks:
+      - axon-demo
+
+networks:
+  axon-demo:

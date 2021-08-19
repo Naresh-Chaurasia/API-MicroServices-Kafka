@@ -17,7 +17,16 @@
         <java.version>11</java.version>
         <spring-cloud.version>2020.0.2</spring-cloud.version>
     </properties>
+
+
+
     <dependencies>
+
+        <dependency>
+            <groupId>com.pluralsight.kafka.streams</groupId>
+            <artifactId>transactions-producer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>com.appsdeveloperblog.estore</groupId>

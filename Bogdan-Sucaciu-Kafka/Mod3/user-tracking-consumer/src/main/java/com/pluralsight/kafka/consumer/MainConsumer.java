@@ -19,7 +19,8 @@ public class MainConsumer {
         SuggestionEngine suggestionEngine = new SuggestionEngine();
 
         Properties props = new Properties();
-        props.put("bootstrap.servers", "localhost:9093,localhost:9094");
+        //props.put("bootstrap.servers", "localhost:9093,localhost:9094");
+        props.put("bootstrap.servers", "ec2-13-229-75-182.ap-southeast-1.compute.amazonaws.com:9093,ec2-13-229-75-182.ap-southeast-1.compute.amazonaws.com:9094");
         props.put("group.id", "user-tracking-consumer");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");

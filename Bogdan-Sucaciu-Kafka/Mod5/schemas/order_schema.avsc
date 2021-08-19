@@ -1,0 +1,17 @@
+{
+  "type": "record",
+  "namespace": "com.pluralsight.kafka.streams.model",
+  "name": "Order",
+  "fields": [
+    {
+      "name": "userId",
+      "type": "string"
+    }, {
+      "name": "totalAmount",
+      "type": "float"
+    }, {
+      "name": "nbOfItems",
+      "type": "int"
+    }
+  ]
+}
