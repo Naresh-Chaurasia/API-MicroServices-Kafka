@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+
+  axon-server:
+    image: axoniq/axonserver
+    container_name: axon-server
+    ports:
+      - 8124:8124
+      - 8024:8024
+    networks:
+      - axon-demo
+
+  discovery-service:
+    build:
+      context: ./DiscoveryService
+    container_name: discovery-service
+    ports:
+      - 8010:8010
+    networks:
+      - axon-demo
+
+networks:
+  axon-demo:
+    driver: bridge
