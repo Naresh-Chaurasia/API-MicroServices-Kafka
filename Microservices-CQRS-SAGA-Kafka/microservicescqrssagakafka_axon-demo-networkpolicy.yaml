@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  creationTimestamp: null
+  name: microservicescqrssagakafka_axon-demo
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          io.kompose.network/microservicescqrssagakafka_axon-demo: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/microservicescqrssagakafka_axon-demo: "true"

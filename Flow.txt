@@ -1,21 +1,34 @@
--------------------------ProductsCommandController/createProducts(@Valid @RequestBody CreateProductRestModel createProductRestModel)-------------------------
+-------------------------ProductsCommandController/createProducts()
+-------------------------ProductsCommandController/createProducts()/calls commandGateway.sendAndWait(createProductCommand)
+-------------------------ProductAggregate/ProductAggregate/@CommandHandler
+-------------------------ProductAggregate/ProductAggregate/Publishing Events
+-------------------------It will dispatch all the event to all event handlers inside this aggregate
+-------------------------ProductAggregate/on/@EventSourcingHandler
+-------------------------ProductEventsHandler/on()/@EventHandler
+-------------------------Persisting in database
 
--------------------------ProductsCommandController/createProducts(@Valid @RequestBody CreateProductRestModel createProductRestModel)/calls commandGateway.sendAndWait(createProductCommand)-------------------------
+==================================================================================
 
--------------------------CreateProductCommandInterceptor/handle()-------------------------
-Intercepted command: class com.appsdeveloperblog.estore.ProductsService.command.CreateProductCommand
+-------------------------ProductsQueryController/getProducts/@GetMapping calls queryGateway.query(..)
+-------------------------ProductsRepository/findProducts/@QueryHandler
 
--------------------------CreateProductCommandInterceptor/handle()-------------------------
-Intercepted command: class com.appsdeveloperblog.estore.ProductsService.command.CreateProductCommand
+==================================================================================
 
--------------------------ProductAggregate/ProductAggregate(CreateProductCommand createProductCommand)/@CommandHandler-------------------------
+-------------------------ProductsCommandController/createProducts()
+-------------------------ProductsCommandController/createProducts()/calls commandGateway.sendAndWait(createProductCommand)
+-------------------------CreateProductCommandInterceptor/handle()
+-------------------------ProductAggregate/ProductAggregate/@CommandHandler
+-------------------------ProductAggregate/ProductAggregate/Publishing Events
+-------------------------It will dispatch all the event to all event handlers inside this aggregate
+-------------------------ProductAggregate/on/@EventSourcingHandler
+-------------------------ProductLookupEventsHandler/on()/@EventHandler. Save in Db
+-------------------------ProductEventsHandler/on()/@EventHandler
+-------------------------Persisting in database
 
--------------------------ProductAggregate/ProductAggregate/Publishing Events-------------------------
+==================================================================================
 
--------------------------It will dispatch all the event to all event handlers inside this aggregate-------------------------
+-------------------------ProductsCommandController/createProducts()
+-------------------------ProductsCommandController/createProducts()/calls commandGateway.sendAndWait(createProductCommand)
+-------------------------CreateProductCommandInterceptor/handle()
 
--------------------------ProductAggregate/on(ProductCreatedEvent productCreatedEvent)/@EventSourcingHandler-------------------------
 
--------------------------ProductEventsHandler/on(ProductCreatedEvent event)/@EventHandler-------------------------
-
--------------------------ProductEventsHandler/productsRepository.save(productEntity)-------------------------

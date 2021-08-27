@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose-windows-amd64.exe convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: axon-server
+  name: axon-server
+spec:
+  ports:
+  - name: "8124"
+    port: 8124
+    targetPort: 8124
+  - name: "8024"
+    port: 8024
+    targetPort: 8024
+  selector:
+    io.kompose.service: axon-server
+status:
+  loadBalancer: {}
